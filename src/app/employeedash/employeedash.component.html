@@ -1,0 +1,109 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="owner-name">Employee_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/employee" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Employees</span>
+            </a>
+            <a routerLink="/accountant" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-user-tie"></i>
+                <span>Accountants</span>
+            </a>
+            <a routerLink="/client" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Clients</span>
+            </a>
+            <a routerLink="/product" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/bill" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/energy" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-bolt"></i>
+                <span>Energy</span>
+            </a>
+            <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+    <main class="main-content">
+        <div class="clients-container">
+            <div class="header">
+                <h1>Clients List</h1>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search" class="search-input">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <button type="submit" class="add-button" (click)="addClient()">
+                        <i class="fas fa-plus"></i>
+                        ADD NEW CLIENT
+                    </button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Client Name</th>
+                            <th>Phone Number</th>
+                            <th>City</th>
+                            <th>Product Status</th>
+                            <th>Enter Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let client of clients">
+                            <td>{{client.name}}</td>
+                            <td>{{client.phone}}</td>
+                            <td>{{client.city}}</td>
+                            <td>{{client.status}}</td>
+                            <td>{{client.time}}</td>
+                            <td class="actions">
+                                <button class="action-btn edit" (click)="showEditablePopup(client)">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button class="action-btn delete" (click)="deleteClient(client)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    Showing data 1 to 8 of 200K clients
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <span class="ellipsis">...</span>
+                    <button class="page-btn">40</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
