@@ -30,7 +30,7 @@
                 <i class="fas fa-bolt"></i>
                 <span>Energy</span>
             </a>
-            <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+            <a routerLink="/settingsowner" routerLinkActive="active" class="nav-item">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
             </a>
@@ -87,20 +87,11 @@
                     </tbody>
                 </table>
             </div>
+            <!-- ... existing table ... -->
             <div class="pagination-container">
-                <div class="pagination-info">
-                    Showing data 1 to 8 of 200K accountants
-                </div>
-                <div class="pagination-controls">
-                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <button class="page-btn">4</button>
-                    <span class="ellipsis">...</span>
-                    <button class="page-btn">40</button>
-                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
-                </div>
+                <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
             </div>
         </div>
     </main>

@@ -1,0 +1,78 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile-header">
+            <img src="user.jpg" alt="Profile" class="profile-small">
+            <h2>Client_Name</h2>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/productcl" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/billcl" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingscl" class="nav-item active">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <h1>Products List</h1>
+            <div class="search-container">
+                <input type="text" placeholder="Search" class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+
+        <div class="status-legend">
+            <div class="status-item">
+                <span class="status-dot finished"></span>
+                <span>Finished</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot ongoing"></span>
+                <span>Ongoing</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot pending"></span>
+                <span>Pending</span>
+            </div>
+        </div>
+
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Enter Time</th>
+                    <th>Quantity</th>
+                    <th>Product Status</th>
+                    <th>Finish Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>{{product.reference}}</td>
+                    <td>{{product.enterTime}}</td>
+                    <td>{{product.quantity}}</td>
+                    <td class="status-cell">
+                        <span class="status-dot" [ngClass]="product.status.toLowerCase()"></span>
+                    </td>
+                    <td>{{product.finishTime}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</div>

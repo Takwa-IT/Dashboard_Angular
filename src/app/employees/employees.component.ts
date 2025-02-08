@@ -71,7 +71,7 @@ export class EmployeesComponent {
       html: `
         <input id="swal-input1" class="swal2-input" placeholder="Name" value="${existingData.name}">
         <input id="swal-input2" class="swal2-input" placeholder="Email" value="${existingData.email}">
-        <input id="swal-input3" class="swal2-input" placeholder="Phone" value="${existingData.phone}">
+        <input id="swal-input3" class="swal2-input" placeholder="Phone Number" value="${existingData.phone}">
         <input id="swal-input4" class="swal2-input" placeholder="City" value="${existingData.city}">
       `,
       focusConfirm: false,

@@ -1,25 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule, Router } from '@angular/router';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector: 'app-employeedash',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RouterModule],
   templateUrl: './employeedash.component.html',
   styleUrl: './employeedash.component.css'
 })
 export class EmployeedashComponent {
   clients = [
-    { name: 'Ridha', phone: '23954780', city: 'Tunis', status: 'Pending', time: '15-02-2024 09:45' },
-    { name: 'Jihen', phone: '54980024', city: 'Mahdia', status: 'Ongoing', time: '12-01-2025 13:55' },
-    { name: 'Nour', phone: '54951007', city: 'Tunis', status: 'Ongoing', time: '04-10-2024 08:40' },
-    { name: 'Jihed', phone: '20781994', city: 'Djerba', status: 'Finished', time: '02-01-2025 14:43' },
-    { name: 'Takwa', phone: '9864000', city: 'Monastir', status: 'Finished', time: '14-09-2024 08:20' },
-    { name: 'Ramzi', phone: '50482267', city: 'Tataouine', status: 'Pending', time: '12-02-2024 09:45' },
-    { name: 'Asma', phone: '24763128', city: 'Beja', status: 'Pending', time: '30-11-2024 10:25' },
-    { name: 'Mohsen', phone: '22945761', city: 'Bizerte', status: 'Finished', time: '20-12-2024 09:40' }
+    { name: 'Aymen', phone: '23954780', city: 'Tunis', status: 'Finished', time: ' 12-02-2024 09:45' },
+    { name: 'Fedi', phone: '54980024', city: 'Mahdia', status: 'Pending', time: '12-01-2025 13:55' },
+    { name: 'Nour', phone: '54951007', city: 'Tunis', status: 'Ongoing', time: ' 30-11-2024 10:25' },
+    { name: 'Hamza', phone: '20781994', city: 'Djerba', status: 'Finished', time: ' 22-07-2024 11:52' },
+    { name: 'Ridha', phone: '9864000', city: 'Monastir', status: 'Finished', time: '14-09-2024 08:20' },
+    { name: 'Ramzi', phone: '50482267', city: 'Tataouine', status: 'Ongoing', time: ' 20-12-2024 09:40' },
+    { name: 'Asma', phone: '24763128', city: 'Beja', status: 'Pending', time: ' 02-01-2025 14:43' },
+    { name: 'Mohamed', phone: '22945761', city: 'Bizerte', status: 'Ongoing', time: ' 04-10-2024 08:40' }
   ];
 
   addClient() {
@@ -29,7 +29,7 @@ export class EmployeedashComponent {
         '<input id="swal-input1" class="swal2-input" placeholder="Add Client Name">' +
         '<input id="swal-input2" class="swal2-input" placeholder="Add Client Phone Number">' +
         '<input id="swal-input3" class="swal2-input" placeholder="Add Client City">' +
-        '<input id="swal-input4" class="swal2-input" placeholder="Add Client Product Status">' +
+        '<input id="swal-input4" class="swal2-input" placeholder="Add Product Status">' +
         '<input id="swal-input5" class="swal2-input" placeholder="Add Client Enter Time">',
       focusConfirm: false,
       confirmButtonText: 'Add',
@@ -73,10 +73,10 @@ export class EmployeedashComponent {
       title: 'Edit Client details',
       html: `
         <input id="swal-input1" class="swal2-input" placeholder="Name" value="${existingData.name}">
-        <input id="swal-input2" class="swal2-input" placeholder="Email" value="${existingData.phone}">
-        <input id="swal-input3" class="swal2-input" placeholder="Phone" value="${existingData.city}">
-        <input id="swal-input4" class="swal2-input" placeholder="City" value="${existingData.status}">
-        <input id="swal-input5" class="swal2-input" placeholder="City" value="${existingData.time}">
+        <input id="swal-input2" class="swal2-input" placeholder="Phone" value="${existingData.phone}">
+        <input id="swal-input3" class="swal2-input" placeholder="City" value="${existingData.city}">
+        <input id="swal-input4" class="swal2-input" placeholder="Status" value="${existingData.status}">
+        <input id="swal-input5" class="swal2-input" placeholder="Time" value="${existingData.time}">
       `,
       focusConfirm: false,
       confirmButtonText: 'Save Changes',
@@ -139,6 +139,13 @@ export class EmployeedashComponent {
           confirmButtonColor: '#228B22'
         });
       }
+    });
+  }
+
+  constructor(private router: Router) { }
+  viewClientInfo(client: any) {
+    this.router.navigate(['/clientsinfos'], {
+      state: { clientData: client }
     });
   }
 }

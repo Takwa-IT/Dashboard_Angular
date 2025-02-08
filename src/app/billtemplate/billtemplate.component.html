@@ -1,0 +1,132 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="employee-name">Employee_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/employeedash" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Clients</span>
+            </a>
+            <a routerLink="/productemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/billemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingsemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <div class="bill-container">
+        <div class="action-buttons">
+
+            <button class="btn-send">
+                <i class="fas fa-paper-plane"></i>
+                SEND
+            </button>
+        </div>
+
+        <div class="bill-content">
+            <div class="bill-header">
+                <div class="company-info">
+                    <h1>Factory Name</h1>
+                    <p>Adress</p>
+                </div>
+            </div>
+
+            <h2 class="bill-title">Bill</h2>
+
+            <div class="client-info">
+                <div class="info-group">
+                    <label>Reference:</label>
+                    <input type="text" readonly>
+                </div>
+                <div class="info-group">
+                    <label>Client Name:</label>
+                    <input type="text" readonly>
+                </div>
+                <div class="info-group">
+                    <label>Enter Time:</label>
+                    <input type="text" readonly>
+                </div>
+                <div class="info-group">
+                    <label>Delivery Method:</label>
+                    <input type="text" readonly>
+                </div>
+                <div class="info-group">
+                    <label>Payment Deadline:</label>
+                    <input type="text" readonly>
+                </div>
+            </div>
+
+            <table class="bill-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Initial</td>
+                        <td><input type="number" readonly></td>
+                        <td><input type="number" readonly></td>
+                        <td><input type="number" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Waste</td>
+                        <td><input type="number" readonly></td>
+                        <td><input type="number" readonly></td>
+                        <td><input type="number" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Final</td>
+                        <td><input type="number" readonly></td>
+                        <td><input type="number" readonly></td>
+                        <td><input type="number" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="totals-table">
+                <tr>
+                    <td>Total ET</td>
+                    <td><input type="number" readonly></td>
+                </tr>
+                <tr>
+                    <td>V.A.T %</td>
+                    <td><input type="number" readonly></td>
+                </tr>
+                <tr>
+                    <td>Stamp</td>
+                    <td><input type="number" readonly></td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td><input type="number" readonly></td>
+                </tr>
+            </table>
+
+            <div class="signature-section">
+                <span>Signature</span>
+                <div class="signature-box"></div>
+            </div>
+        </div>
+    </div>
+</div>

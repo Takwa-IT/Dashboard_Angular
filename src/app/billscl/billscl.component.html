@@ -1,0 +1,87 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile-header">
+            <img src="user.jpg" alt="Profile" class="profile-small">
+            <h2>Client_Name</h2>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/productcl" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/billcl" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingscl" class="nav-item active">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <h1>Bills List</h1>
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-input">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="history-btn">
+                    <i class="fas fa-history"></i>
+                    HISTORY
+                </button>
+            </div>
+        </div>
+
+        <div class="status-legend">
+            <div class="status-item">
+                <span class="status-dot paid"></span>
+                <span>Paid</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot unpaid"></span>
+                <span>Unpaid</span>
+            </div>
+        </div>
+
+        <table class="bills-table">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Amount</th>
+                    <th>Quantity</th>
+                    <th>Bill Status</th>
+                    <th>Receive Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bill of bills">
+                    <td>{{bill.reference}}</td>
+                    <td>{{bill.amount}}</td>
+                    <td>{{bill.quantity}}</td>
+                    <td class="status-cell">
+                        <span class="status-dot" [ngClass]="{'paid': bill.isPaid, 'unpaid': !bill.isPaid}"></span>
+                    </td>
+                    <td>{{bill.receiveTime}}</td>
+                    <td>
+                        <button [class]="bill.isPaid ? 'action-btn paid' : 'action-btn pay'" [disabled]="bill.isPaid"
+                            (click)="!bill.isPaid">
+                            {{bill.isPaid ? 'PAIED' : 'PAY'}}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
