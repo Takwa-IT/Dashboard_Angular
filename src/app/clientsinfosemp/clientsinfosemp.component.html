@@ -1,0 +1,100 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="employee-name">Employee_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/employeedash" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Clients</span>
+            </a>
+            <a routerLink="/productemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/billemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingsemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+    <div class="container">
+        <div class="info-container">
+            <div class="form-section">
+                <h3>Client Informations</h3>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" [value]="clientData?.name" readonly class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" [value]="clientData?.phone" readonly class="form-input">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Product Informations</h3>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" [value]="clientData?.city" readonly class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Enter Time</label>
+                    <input type="text" [value]="clientData?.time" readonly class="form-input">
+                </div>
+
+
+                <div class="form-group">
+                    <label>Product Status</label>
+                    <div class="status-bar">
+                        <div class="status-step" [class.active]="clientData?.status === 'Pending'">
+                            <div class="status-dot pending"></div>
+                            <span>PENDING</span>
+                        </div>
+                        <div class="status-step" [class.active]="clientData?.status === 'Ongoing'">
+                            <div class="status-dot ongoing"></div>
+                            <span>ONGOING</span>
+                        </div>
+                        <div class="status-step" [class.active]="clientData?.status === 'Finished'">
+                            <div class="status-dot finished"></div>
+                            <span>FINISHED</span>
+                        </div>
+                        <div class="status-step">
+                            <div class="status-dot delivered"></div>
+                            <span>DELIVERED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button class="action-button history">
+                    <i class="fas fa-history"></i>
+                    HISTORY
+                </button>
+                <button class="action-button export">
+                    <i class="fas fa-file-export"></i>
+                    EXPORT DETAILS
+                </button>
+                <button class="action-button report" (click)="viewReport(clientData)" routerLink="/reportemp">
+                    <i class="fas fa-file-alt"></i>
+                    REPORT
+                </button>
+            </div>
+        </div>
+    </div>

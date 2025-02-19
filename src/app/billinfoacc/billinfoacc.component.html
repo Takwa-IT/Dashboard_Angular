@@ -1,0 +1,133 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="accountant-name">Accountant_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/billacc" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingsacc" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <div class="bill-container">
+        <div class="action-buttons">
+            <button class="btn-action pay">
+                <i class="fas fa-dollar-sign"></i>
+                PAY
+            </button>
+            <button class="btn-action export">
+                <i class="fas fa-file-export"></i>
+                EXPORT DETAILS
+            </button>
+            <button class="btn-action send">
+                <i class="fas fa-paper-plane"></i>
+                SEND
+            </button>
+        </div>
+
+        <div class="bill-content">
+            <div class="bill-header">
+                <div class="company-info">
+                    <h1>Factory Name</h1>
+                    <p>Adress</p>
+                </div>
+            </div>
+
+            <h2 class="bill-title">Bill</h2>
+
+            <div class="client-info">
+                <div class="info-group">
+                    <label>Reference:</label>
+                    <span>{{billData.reference}}</span>
+                </div>
+                <div class="info-group">
+                    <label>Client Name:</label>
+                    <span>{{billData.name}}</span>
+                </div>
+                <div class="info-group">
+                    <label>Enter Time:</label>
+                    <span>{{billData.enter}}</span>
+                </div>
+                <div class="info-group">
+                    <label>Delivery Method:</label>
+                    <span>{{billData.deliveryMethod}}</span>
+                </div>
+                <div class="info-group">
+                    <label>Payment Deadline:</label>
+                    <span>{{billData.paymentDeadline}}</span>
+                </div>
+            </div>
+
+            <table class="bill-table">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="quantity-row">
+                                <span>Initial</span>
+                                <span>{{billData.quantity.initial}}</span>
+                            </div>
+                            <div class="quantity-row">
+                                <span>Waste</span>
+                                <span>{{billData.quantity.waste}}</span>
+                            </div>
+                            <div class="quantity-row">
+                                <span>Final</span>
+                                <span>{{billData.quantity.final}}</span>
+                            </div>
+                        </td>
+                        <td>{{billData.unitPrice}}</td>
+                        <td>{{billData.total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="totals-table">
+                <tr>
+                    <td>Total ET</td>
+                    <td>{{billData.totalET}}</td>
+                </tr>
+                <tr>
+                    <td>V.A.T %</td>
+                    <td>{{billData.vat}}</td>
+                </tr>
+                <tr>
+                    <td>Delivery Price</td>
+                    <td>{{billData.deliveryPrice}}</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>{{billData.finalTotal}}</td>
+                </tr>
+            </table>
+
+            <div class="signature-section">
+                <span>Signature</span>
+                <div class="signature-box"></div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

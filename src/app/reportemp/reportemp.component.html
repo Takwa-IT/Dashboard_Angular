@@ -1,0 +1,109 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="employee-name">Employee_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/employeedash" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Clients</span>
+            </a>
+            <a routerLink="/productemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/billemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingsemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+    <div class="action-buttons">
+        <button class="send-button">
+            <i class="fas fa-paper-plane"></i>
+            SEND
+        </button>
+    </div>
+    <div class="report-container">
+        <div class="report-content">
+            <div class="report-header">
+                <div class="factory-info">
+                    <h2>Factory Name</h2>
+                    <p>Adress</p>
+                </div>
+            </div>
+
+            <h1 class="report-title">Report</h1>
+
+            <div class="client-info">
+                <div class="info-row">
+                    <span>Client Name:</span>
+                    <span>{{reportData?.name}}</span>
+                </div>
+                <div class="info-row">
+                    <span>Reference:</span>
+                    <span>{{reportData?.reference || '5498002'}}</span>
+                </div>
+            </div>
+
+            <div class="product-status">
+                <h3>Product Status</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="time-point active"></div>
+                        <div class="time-label">
+                            <div>ENTER TIME</div>
+                            <div>{{reportData?.enterTime}}</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-point active"></div>
+                        <div class="time-label">
+                            <div>FINISH TIME</div>
+                            <div>{{reportData?.finishTime}}</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-point active"></div>
+                        <div class="time-label">
+                            <div>GET PRODUCT TIME</div>
+                            <div>{{reportData?.getProductTime}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-details">
+                <h3>Payment Details</h3>
+                <div class="info-row">
+                    <span>Payment Method</span>
+                    <span>{{reportData?.paymentMethod || 'Cash'}}</span>
+                </div>
+                <div class="info-row">
+                    <span>Total Price</span>
+                    <span>{{reportData?.totalPrice || '2000'}}DT</span>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="date">{{currentDate}}</div>
+                <div class="signature-line">
+                    <span>Signature</span>
+                    <div class="signature-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>

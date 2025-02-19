@@ -1,0 +1,111 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="accountant-name">Accountant_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/billacc" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingsacc" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Bills List</h1>
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="text" [(ngModel)]="searchQuery" placeholder="Search bills..."
+                        (keydown)="onSearchKeydown($event)" />
+                    <button (click)="searchBills()" tabindex="0">Search</button>
+                </div>
+                <button type="submit" class="add-button" (click)="addBill()">
+                    <i class="fas fa-plus"></i>
+                    ADD NEW BILL
+                </button>
+            </div>
+        </div>
+
+        <div class="status-legend" style="margin-bottom: 20px; display: flex; gap: 20px;">
+            <div class="status-text">
+                <span class="status-indicator status-paid"></span>
+                Paid
+            </div>
+            <div class="status-text">
+                <span class="status-indicator status-unpaid"></span>
+                Unpaid
+            </div>
+        </div>
+
+        <table class="bills-table">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Client Name</th>
+                    <th>City</th>
+                    <th>Bill Status</th>
+                    <th>Enter Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bill of bills">
+                    <td>{{bill.reference}}</td>
+                    <td>{{bill.name}}</td>
+                    <td>{{bill.city}}</td>
+                    <td class="status-cell">
+                        <div class="status-wrapper">
+                            <span class="status-indicator" [ngClass]="{
+                                'status-paid': bill.status === 'Paid',
+                                'status-unpaid': bill.status === 'Unpaid'
+                            }"></span>
+
+                        </div>
+                    </td>
+                    <td>{{bill.enter}}</td>
+                    <td class="actions">
+                        <button class="action-btn edit" (click)="showEditablePopup(bill)">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button class="action-btn delete" (click)="deleteBill(bill)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="action-btn view" (click)="viewBillInfo(bill)" routerLink="/billinfosacc">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination-container">
+            <div class="pagination-info">
+                Showing data 1 to 8 of 200K bills
+            </div>
+            <div class="pagination-controls">
+                <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <span class="ellipsis">...</span>
+                <button class="page-btn">40</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

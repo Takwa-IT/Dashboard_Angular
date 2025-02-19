@@ -1,0 +1,96 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="employee-name">Employee_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/employeedash" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Clients</span>
+            </a>
+            <a routerLink="/productemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/billemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingsemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+    <div class="container">
+        <div class="info-container">
+
+            <div class="form-section">
+                <h3>Product Informations</h3>
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" [value]="productData?.name" readonly class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Enter Time</label>
+                    <input type="text" [value]="productData?.enter" readonly class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="text" [value]="productData?.quantity" readonly class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" [value]="productData?.city" readonly class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Finish Time</label>
+                    <input type="text" [value]="productData?.finish" readonly class="form-input">
+                </div>
+
+
+                <div class="form-group">
+                    <label>Product Status</label>
+                    <div class="status-bar">
+                        <div class="status-step" [class.active]="productData?.status === 'Pending'">
+                            <div class="status-dot pending"></div>
+                            <span>PENDING</span>
+                        </div>
+                        <div class="status-step" [class.active]="productData?.status === 'Ongoing'">
+                            <div class="status-dot ongoing"></div>
+                            <span>ONGOING</span>
+                        </div>
+                        <div class="status-step" [class.active]="productData?.status === 'Finished'">
+                            <div class="status-dot finished"></div>
+                            <span>FINISHED</span>
+                        </div>
+                        <div class="status-step">
+                            <div class="status-dot delivered"></div>
+                            <span>DELIVERED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button class="action-button history">
+                    <i class="fas fa-history"></i>
+                    HISTORY
+                </button>
+                <button class="action-button export">
+                    <i class="fas fa-file-export"></i>
+                    EXPORT DETAILS
+                </button>
+            </div>
+        </div>
+    </div>

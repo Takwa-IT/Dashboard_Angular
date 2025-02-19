@@ -1,0 +1,126 @@
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="user.jpg" alt="Profile" class="profile-img">
+            <h3 class="employee-name">Employee_Name</h3>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/employeedash" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Clients</span>
+            </a>
+            <a routerLink="/productemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a routerLink="/billemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Bills</span>
+            </a>
+            <a routerLink="/settingsemp" routerLinkActive="active" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="logout">
+            <a routerLink="/login" class="nav-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="clients-container">
+            <div class="header">
+                <h1>Products List</h1>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" [(ngModel)]="searchQuery" placeholder="Search products..."
+                            (keydown)="onSearchKeydown($event)" />
+                        <button (click)="searchProducts()" tabindex="0">Search</button>
+                    </div>
+                    <button type="submit" class="add-button" (click)="addProduct()">
+                        <i class="fas fa-plus"></i>
+                        ADD NEW PRODUCT
+                    </button>
+                </div>
+            </div>
+            <div class="status-legend" style="margin-bottom: 20px; display: flex; gap: 20px;">
+                <div class="status-text">
+                    <span class="status-indicator status-finished"></span>
+                    Finished
+                </div>
+                <div class="status-text">
+                    <span class="status-indicator status-ongoing"></span>
+                    Ongoing
+                </div>
+                <div class="status-text">
+                    <span class="status-indicator status-pending"></span>
+                    Pending
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Enter Time</th>
+                            <th>Quantity</th>
+                            <th>City</th>
+                            <th>Product Status</th>
+                            <th>Finish Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of products">
+                            <td>{{product.name}}</td>
+                            <td>{{product.enter}}</td>
+                            <td>{{product.quantity}}</td>
+                            <td>{{product.city}}</td>
+                            <td>
+                                <span class="status-indicator" [ngClass]="{
+                                        'status-finished': product.status === 'Finished',
+                                        'status-ongoing': product.status === 'Ongoing',
+                                        'status-pending': product.status === 'Pending'
+                                      }" [title]="product.status">
+                                </span>
+                            </td>
+                            <td>{{product.finish}}</td>
+                            <td class="actions">
+                                <button class="action-btn edit" (click)="showEditablePopup(product)">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button>
+                                <button class="action-btn delete" (click)="deleteProduct(product)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="action-btn view" (click)="viewProductInfo(product)"
+                                    routerLink="/productsinfosemp">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    Showing data 1 to 8 of 200K products
+                </div>
+                <div class="pagination-controls">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <span class="ellipsis">...</span>
+                    <button class="page-btn">40</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
