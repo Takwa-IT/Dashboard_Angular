@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import { FormsModule } from "@angular/forms";
 import { CommonModule, NgFor } from "@angular/common";
 import { RouterLink, RouterModule } from "@angular/router";
+import { Accountant, AccountantService } from "../services/accountant.service";
 
 
 @Component({
@@ -12,19 +13,29 @@ import { RouterLink, RouterModule } from "@angular/router";
   templateUrl: "./accountant.component.html",
   styleUrls: ["./accountant.component.css"],
 })
-export class AccountantComponent {
-  accountants = [
-    { name: 'Moez', phone: '23954780', city: 'Gafsa', email: 'Moez@gmail.com' },
-    { name: 'Njoud', phone: '54980024', city: 'Tunis', email: 'Njoud@gmail.com' },
-    { name: 'Roua', phone: '54951007', city: 'Bizerte', email: 'Roua@gmail.com' },
-    { name: 'Hamza', phone: '20781994', city: 'Djerba', email: 'Hamza@gmail.com' },
-    { name: 'Nidhal', phone: '9864000', city: 'Monastir', email: 'Nidhal@gmail.com' },
-    { name: 'Ramzi', phone: '50482267', city: 'Sousse', email: 'Ramzi@gmail.com' },
-    { name: 'Asma', phone: '24763128', city: 'Beja', email: 'Asma@gmail.com' },
-    { name: 'Lotfi', phone: '22945761', city: 'Ariana', email: 'Lotfi@gmail.com' }
-  ];
+export class AccountantComponent implements OnInit {
+  accountants: Accountant[] = [];
+  searchQuery: string = '';
+  isSearchActive: boolean = false;
 
-  addAccountant() {
+  constructor(private accountantService: AccountantService) { }
+
+  ngOnInit(): void {
+    this.loadAccountants();
+  }
+
+  loadAccountants(): void {
+    this.accountantService.getAllAccountants().subscribe(
+      (data: Accountant[]) => {
+        this.accountants = data;
+      },
+      (error: any) => {
+        console.error('Error fetching accountants:', error);
+      }
+    );
+  }
+
+  addAccountant(): void {
     Swal.fire({
       title: 'Enter Accountant details',
       html:
@@ -35,7 +46,7 @@ export class AccountantComponent {
       focusConfirm: false,
       confirmButtonText: 'Add',
       confirmButtonColor: '#228B22',
-      preConfirm: (): { name: string; phone: string; city: string; email: string } | false => {
+      preConfirm: (): Accountant | false => {
         const name = (document.getElementById('swal-input1') as HTMLInputElement).value;
         const phone = (document.getElementById('swal-input2') as HTMLInputElement).value;
         const city = (document.getElementById('swal-input3') as HTMLInputElement).value;
@@ -47,27 +58,40 @@ export class AccountantComponent {
         }
         return { name, phone, email, city };
       }
-    }).then((result: SweetAlertResult<{ name: string; phone: string; city: string; email: string }>) => {
+    }).then((result: SweetAlertResult<Accountant>) => {
       if (result.isConfirmed && result.value) {
-        this.accountants.push(result.value);
-
-        Swal.fire({
-          title: ' Client Added Successfully!',
-          html: `
-              <p>Name: ${result.value.name}</p>
-              <p>City: ${result.value.city}</p>
-              <p>Phone: ${result.value.phone}</p>
-              <p>City: ${result.value.city}</p>
-            `,
-          icon: 'success',
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#228B22'
-        });
+        this.accountantService.addAccountant(result.value).subscribe(
+          (newAccountant: Accountant) => {
+            this.accountants.push(newAccountant);
+            Swal.fire({
+              title: 'Accountant Added Successfully!',
+              html: `
+                <p>Name: ${newAccountant.name}</p>
+                <p>Phone: ${newAccountant.phone}</p>
+                <p>City: ${newAccountant.city}</p>
+                <p>Email: ${newAccountant.email}</p>
+              `,
+              icon: 'success',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#228B22'
+            });
+          },
+          (error: any) => {
+            console.error('Error adding accountant:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to add accountant.',
+              icon: 'error',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#d33'
+            });
+          }
+        );
       }
     });
   }
 
-  showEditablePopup(existingData: { name: string; phone: string; city: string; email: string }) {
+  showEditablePopup(existingData: Accountant): void {
     Swal.fire({
       title: 'Edit Accountant details',
       html: `
@@ -79,7 +103,7 @@ export class AccountantComponent {
       focusConfirm: false,
       confirmButtonText: 'Save Changes',
       confirmButtonColor: '#228B22',
-      preConfirm: () => {
+      preConfirm: (): Accountant | false => {
         const name = (document.getElementById('swal-input1') as HTMLInputElement).value;
         const phone = (document.getElementById('swal-input2') as HTMLInputElement).value;
         const city = (document.getElementById('swal-input3') as HTMLInputElement).value;
@@ -90,33 +114,45 @@ export class AccountantComponent {
           return false;
         }
 
-        return { name, email, phone, city };
+        return { id: existingData.id, name, email, phone, city };
       }
-    }).then((result: SweetAlertResult<{ name: string; phone: string; city: string; email: string }>) => {
+    }).then((result: SweetAlertResult<Accountant>) => {
       if (result.isConfirmed && result.value) {
-
-        const index = this.accountants.findIndex(acc => acc.name === existingData.name);
-        if (index !== -1) {
-          this.accountants[index] = result.value;
-        }
-
-        Swal.fire({
-          title: 'Accountant Updated Successfully!',
-          html: `
-                <p>Name: ${result.value.name}</p>
-                <p>Phone: ${result.value.phone}</p>
-                <p>City: ${result.value.city}</p>
-                <p>Email: ${result.value.email}</p>
+        this.accountantService.updateAccountant(result.value.id!, result.value).subscribe(
+          (updatedAccountant: Accountant) => {
+            const index = this.accountants.findIndex(acc => acc.id === updatedAccountant.id);
+            if (index !== -1) {
+              this.accountants[index] = updatedAccountant;
+            }
+            Swal.fire({
+              title: 'Accountant Updated Successfully!',
+              html: `
+                <p>Name: ${updatedAccountant.name}</p>
+                <p>Phone: ${updatedAccountant.phone}</p>
+                <p>City: ${updatedAccountant.city}</p>
+                <p>Email: ${updatedAccountant.email}</p>
               `,
-          icon: 'success',
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#228B22'
-        });
+              icon: 'success',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#228B22'
+            });
+          },
+          (error: any) => {
+            console.error('Error updating accountant:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to update accountant.',
+              icon: 'error',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#d33'
+            });
+          }
+        );
       }
     });
   }
 
-  deleteAccountant(accountant: { name: string; phone: string; city: string; email: string }) {
+  deleteAccountant(accountant: Accountant): void {
     Swal.fire({
       title: 'Are you sure?',
       text: `Do you really want to delete ${accountant.name}?`,
@@ -127,23 +163,34 @@ export class AccountantComponent {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.accountants = this.accountants.filter(acc => acc.name !== accountant.name);
-        Swal.fire({
-          title: 'Deleted!',
-          text: `${accountant.name} has been deleted.`,
-          icon: 'success',
-          confirmButtonColor: '#228B22'
-        });
+        this.accountantService.deleteAccountant(accountant.id!).subscribe(
+          () => {
+            this.accountants = this.accountants.filter(acc => acc.id !== accountant.id);
+            Swal.fire({
+              title: 'Deleted!',
+              text: `${accountant.name} has been deleted.`,
+              icon: 'success',
+              confirmButtonColor: '#228B22'
+            });
+          },
+          (error: any) => {
+            console.error('Error deleting accountant:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to delete accountant.',
+              icon: 'error',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#d33'
+            });
+          }
+        );
       }
     });
   }
 
-  searchQuery: string = '';
-  isSearchActive: boolean = false;
-
   searchAccountant(): void {
     if (!this.searchQuery) {
-      this.loadAccountant();
+      this.loadAccountants();
       this.isSearchActive = false;
       return;
     }
@@ -158,14 +205,10 @@ export class AccountantComponent {
     );
     this.isSearchActive = true;
   }
-  loadAccountant() {
-    throw new Error('Method not implemented.');
-  }
+
   onSearchKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
-      this.searchAccountant(); // Trigger search when Enter is pressed
+      this.searchAccountant();
     }
   }
-
-
 }

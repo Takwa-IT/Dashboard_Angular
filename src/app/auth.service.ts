@@ -14,13 +14,13 @@ export class AuthService {
         this.router.navigate(['/dash']);
         break;
       case 'client':
-        this.router.navigate(['/employeedash']);
+        this.router.navigate(['/billcl']);
         break;
       case 'accountant':
         this.router.navigate(['/billacc']);
         break;
       case 'employee':
-        this.router.navigate(['/productcl']);
+        this.router.navigate(['/employeedash']);
         break;
       default:
         this.router.navigate(['/']);

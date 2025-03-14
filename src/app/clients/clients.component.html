@@ -87,8 +87,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let client of clients">
-                            <td>{{client.name}}</td>
-                            <td>{{client.phone}}</td>
+                            <td>{{client.client_name}}</td>
+                            <td>{{client.phone_number}}</td>
                             <td>{{client.city}}</td>
                             <td>
                                 <span class="status-indicator" [ngClass]="{
@@ -98,7 +98,7 @@
                                       }" [title]="client.status">
                                 </span>
                             </td>
-                            <td>{{client.time}}</td>
+                            <td>{{client.enter_time}}</td>
                             <td class="actions">
                                 <button class="action-btn edit" (click)="showEditablePopup(client)">
                                     <i class="fas fa-pencil-alt"></i>

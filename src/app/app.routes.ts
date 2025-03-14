@@ -21,6 +21,8 @@ import { BillinfoaccComponent } from './billinfoacc/billinfoacc.component';
 import { SettingsclientComponent } from './settingsclient/settingsclient.component';
 import { ProductclientComponent } from './productclient/productclient.component';
 import { BillsclComponent } from './billscl/billscl.component';
+import { BillownerComponent } from './billowner/billowner.component';
+import { BillonfosownerComponent } from './billonfosowner/billonfosowner.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -33,6 +35,8 @@ export const routes: Routes = [
     { path: 'clientsinfosown', component: ClientsinfosownerComponent },
     { path: 'product', component: ProductsComponent },
     { path: 'productsinfosown', component: ProductinfosComponent },
+    { path: 'bill', component: BillownerComponent },
+    { path: 'billinfosown', component: BillonfosownerComponent },
 
 
     { path: 'employeedash', component: EmployeedashComponent },
