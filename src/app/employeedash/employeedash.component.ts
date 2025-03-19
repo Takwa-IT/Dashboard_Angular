@@ -13,20 +13,19 @@ import { ClientsService, Client } from '../services/clients.service'; // Import 
   styleUrl: './employeedash.component.css'
 })
 export class EmployeedashComponent {
-  clients: Client[] = []; // Use the Client interface
+  clients: Client[] = [];
   searchQuery: string = '';
   isSearchActive: boolean = false;
 
   constructor(
-    private clientsService: ClientsService, // Inject the ClientsService
+    private clientsService: ClientsService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.loadClients(); // Load clients when the component initializes
+    this.loadClients();
   }
 
-  // Load all clients from the backend
   loadClients(): void {
     this.clientsService.getAllClients().subscribe({
       next: (data) => (this.clients = data),
@@ -34,7 +33,6 @@ export class EmployeedashComponent {
     });
   }
 
-  // Add a new client
   addClient(): void {
     Swal.fire({
       title: 'Enter Client details',
@@ -67,7 +65,7 @@ export class EmployeedashComponent {
       if (result.isConfirmed && result.value) {
         this.clientsService.createClient(result.value).subscribe({
           next: (newClient) => {
-            this.clients.push(newClient); // Add the new client to the list
+            this.clients.push(newClient);
             Swal.fire('Success!', 'Client added successfully.', 'success');
           },
           error: (err) => Swal.fire('Error!', 'Failed to add client.', 'error')
@@ -76,7 +74,6 @@ export class EmployeedashComponent {
     });
   }
 
-  // Edit a client
   showEditablePopup(client: Client): void {
     Swal.fire({
       title: 'Edit Client details',
@@ -109,7 +106,7 @@ export class EmployeedashComponent {
           next: (updatedClient) => {
             const index = this.clients.findIndex((c) => c.id === client.id);
             if (index !== -1) {
-              this.clients[index] = updatedClient; // Update the client in the list
+              this.clients[index] = updatedClient;
             }
             Swal.fire('Success!', 'Client updated successfully.', 'success');
           },
@@ -119,7 +116,6 @@ export class EmployeedashComponent {
     });
   }
 
-  // Delete a client
   deleteClient(client: Client): void {
     Swal.fire({
       title: 'Are you sure?',
@@ -142,17 +138,15 @@ export class EmployeedashComponent {
     });
   }
 
-  // View client info
   viewClientInfo(client: Client): void {
     this.router.navigate(['/clientsinfosown'], {
       state: { clientData: client }
     });
   }
 
-  // Search clients
   searchClient(): void {
     if (!this.searchQuery) {
-      this.loadClients(); // Reload all clients if the search query is empty
+      this.loadClients();
       this.isSearchActive = false;
       return;
     }
@@ -169,7 +163,6 @@ export class EmployeedashComponent {
     this.isSearchActive = true;
   }
 
-  // Handle search keydown event
   onSearchKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.searchClient();

@@ -13,20 +13,19 @@ import { ClientsService, Client } from '../services/clients.service'; // Import 
   styleUrl: './clients.component.css'
 })
 export class ClientsComponent implements OnInit {
-  clients: Client[] = []; // Use the Client interface
+  clients: Client[] = [];
   searchQuery: string = '';
   isSearchActive: boolean = false;
 
   constructor(
-    private clientsService: ClientsService, // Inject the ClientsService
+    private clientsService: ClientsService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.loadClients(); // Load clients when the component initializes
+    this.loadClients();
   }
 
-  // Load all clients from the backend
   loadClients(): void {
     this.clientsService.getAllClients().subscribe({
       next: (data) => (this.clients = data),
@@ -95,7 +94,6 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  // Edit a client
   showEditablePopup(client: Client): void {
     Swal.fire({
       title: 'Edit Client details',
@@ -128,7 +126,7 @@ export class ClientsComponent implements OnInit {
           next: (updatedClient) => {
             const index = this.clients.findIndex((c) => c.id === client.id);
             if (index !== -1) {
-              this.clients[index] = updatedClient; // Update the client in the list
+              this.clients[index] = updatedClient;
             }
             Swal.fire('Success!', 'Client updated successfully.', 'success');
           },
@@ -138,7 +136,6 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  // Delete a client
   deleteClient(client: Client): void {
     Swal.fire({
       title: 'Are you sure?',
@@ -152,7 +149,7 @@ export class ClientsComponent implements OnInit {
       if (result.isConfirmed) {
         this.clientsService.deleteClient(client.id).subscribe({
           next: () => {
-            this.clients = this.clients.filter((c) => c.id !== client.id); // Remove the client from the list
+            this.clients = this.clients.filter((c) => c.id !== client.id);
             Swal.fire('Deleted!', 'Client has been deleted.', 'success');
           },
           error: (err) => Swal.fire('Error!', 'Failed to delete client.', 'error')
@@ -161,17 +158,15 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  // View client info
   viewClientInfo(client: Client): void {
     this.router.navigate(['/clientsinfosown'], {
       state: { clientData: client }
     });
   }
 
-  // Search clients
   searchClient(): void {
     if (!this.searchQuery) {
-      this.loadClients(); // Reload all clients if the search query is empty
+      this.loadClients();
       this.isSearchActive = false;
       return;
     }
@@ -188,7 +183,7 @@ export class ClientsComponent implements OnInit {
     this.isSearchActive = true;
   }
 
-  // Handle search keydown event
+
   onSearchKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.searchClient();

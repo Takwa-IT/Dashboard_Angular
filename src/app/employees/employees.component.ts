@@ -13,20 +13,19 @@ import { EmployesService, employee } from '../services/employes.service';
 })
 export class EmployeesComponent {
 
-  employee: employee[] = []; // Use the Client interface
+  employee: employee[] = []; 
   searchQuery: string = '';
   isSearchActive: boolean = false;
 
   constructor(
-    private EmployesService: EmployesService, // Inject the ClientsService
+    private EmployesService: EmployesService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.loadEmployee(); // Load clients when the component initializes
+    this.loadEmployee(); 
   }
 
-  // Load all clients from the backend
   loadEmployee(): void {
     this.EmployesService.getAllEmployees().subscribe({
       next: (data) => (this.employee = data),
@@ -133,7 +132,6 @@ export class EmployeesComponent {
     });
   }
 
-  // Delete a client
   deleteEmployee(employee: employee): void {
     Swal.fire({
       title: 'Are you sure?',

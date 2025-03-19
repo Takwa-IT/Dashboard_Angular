@@ -18,27 +18,22 @@ export class ClientsService {
 
   constructor(private http: HttpClient) { }
 
-  // Get all clients
   getAllClients(): Observable<Client[]> {
     return this.http.get<Client[]>(this.apiUrl);
   }
 
-  // Get a client by ID
   getClientById(id: number): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/${id}`);
   }
 
-  // Create a new client
   createClient(client: Client): Observable<Client> {
     return this.http.post<Client>(this.apiUrl, client);
   }
 
-  // Update an existing client
   updateClient(id: number, client: Client): Observable<Client> {
     return this.http.put<Client>(`${this.apiUrl}/${id}`, client);
   }
 
-  // Delete a client
   deleteClient(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
